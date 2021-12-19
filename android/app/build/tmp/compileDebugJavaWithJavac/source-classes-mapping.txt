@@ -1,0 +1,14 @@
+com/ngelesi/MainActivity.java
+ com.ngelesi.MainActivity
+com/ngelesi/MainApplication.java
+ com.ngelesi.MainApplication
+ com.ngelesi.MainApplication$1
+com/ngelesi/BuildConfig.java
+ com.ngelesi.BuildConfig
+com/ngelesi/ReactNativeFlipper.java
+ com.ngelesi.ReactNativeFlipper
+ com.ngelesi.ReactNativeFlipper$1
+ com.ngelesi.ReactNativeFlipper$2
+ com.ngelesi.ReactNativeFlipper$2$1
+com/facebook/react/PackageList.java
+ com.facebook.react.PackageList
