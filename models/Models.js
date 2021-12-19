@@ -207,5 +207,6 @@ const Models = {
     const res = await fetchItem.json();
     return res;
   },
+  
 };
 export default Models;

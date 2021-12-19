@@ -11,17 +11,17 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Models from '../../models/Models';
 
-const Kelasguru = () => {
+const Kelasguru = ({navigation}) => {
   const [items, setItems] = useState([]);
   useEffect(() => {
     const getData = async () => {
       try {
         const value = await AsyncStorage.getItem('user');
         const res = await JSON.parse(value);
-        console.log(res.id);
-        const responses = await Models.getKelasbyIdUser(res);
+        console.log(res);
+        const responses = await Models.getKelasByIdAdmin(res);
         setItems(responses);
-        return console.log('hai');
+        console.log(items);
       } catch (e) {
         // error reading value
       }

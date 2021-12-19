@@ -20,6 +20,7 @@ const DaftarUser = ({prop}) => {
   const [password, onChangePassword] = useState(null);
   const [konfirmasiPassword, onChangeKonfirmasi] = useState(null);
   const [pilihan, onChangePilihan] = useState(null);
+  const [items, setItems] = useState(null);
   const storeData = async value => {
     try {
       const jsonValue = JSON.stringify(value);
@@ -50,11 +51,27 @@ const DaftarUser = ({prop}) => {
     } else {
       console.log(dat);
       const res = await Models.register(dat);
-      console.log(res);
       if (res == false) {
-        alert('username sudah dipakai');
+        alert('username atau email sudah dipakai');
+      } else if (pilihan == 'murid') {
+        const dataUser = {
+          username: username,
+          password: password,
+          pilihan: pilihan,
+          id: res[0].id_user,
+        };
+        console.log(dataUser);
+        storeData(dataUser);
+        prop.navigate('Main', {pilihan: pilihan});
       } else {
-        storeData()
+        const dataAdmin = {
+          username: username,
+          password: password,
+          pilihan: pilihan,
+          id: res[0].id_admin,
+        };
+        console.log(dataAdmin);
+        storeData(dataAdmin);
         prop.navigate('Main', {pilihan: pilihan});
       }
     }

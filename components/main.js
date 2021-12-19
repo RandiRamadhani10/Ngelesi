@@ -6,7 +6,7 @@ import User from './main/User';
 import Home from './main/Home';
 import Kelas from './main/Kelas';
 import Search from './main/Search';
-import Kelasguru from './guru/KelasGuru';
+import KelasGuru from './guru/KelasGuru';
 import Header from './child/header';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import dat from '../utils/dat';
