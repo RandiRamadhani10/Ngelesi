@@ -55,7 +55,7 @@ const Login = ({navigation}) => {
     }
 
     const res = await Models.login(dat);
-    if (res == false) {
+    if (res == null) {
       alert('Username dan Password salah!!!');
       return true;
     } else {

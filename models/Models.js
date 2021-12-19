@@ -1,4 +1,4 @@
-const api = '192.168.1.12';
+const api = '192.168.43.249';
 const Models = {
   async login(data) {
     const fetchItem = await fetch(`http://${api}:8080/ngelesi/Api/login`, {
@@ -8,6 +8,7 @@ const Models = {
       },
       body: JSON.stringify({
         username: data.username,
+        email: data.email,
         password: data.password,
         pilihan: data.pilihan,
       }),
@@ -17,7 +18,6 @@ const Models = {
   },
   async register(data) {
     if (data.pilihan === 'murid') {
-      console.log('halo');
       const fetchItem = await fetch(
         `http://${api}:8080/ngelesi/Api/registration_Murid`,
         {
@@ -36,7 +36,6 @@ const Models = {
       const res = await fetchItem.json();
       return res;
     } else {
-      console.log('eeee');
       const fetchItem = await fetch(
         `http://${api}:8080/ngelesi/Api/registration_Guru`,
         {
@@ -186,6 +185,22 @@ const Models = {
           pendidikan: data.pendidikan,
           jenis_kelamin: data.jenis_kelamin,
           alamat: data.alamat,
+        }),
+      },
+    );
+    const res = await fetchItem.json();
+    return res;
+  },
+  async getKelasByIdAdmin(data) {
+    const fetchItem = await fetch(
+      `http://${api}:8080/ngelesi/Api/getKelasByIdAdmin`,
+      {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          id_kelas: data.id,
         }),
       },
     );

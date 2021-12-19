@@ -24,6 +24,15 @@ const Userguru = ({navigation}) => {
           <TouchableOpacity
             style={style.inputButton}
             onPress={() => {
+              navigation.navigate('ListKelasKelolaJadwal');
+            }}>
+            <Text style={style.text}>Kelola Jadwal</Text>
+          </TouchableOpacity>
+        </View>
+        <View>
+          <TouchableOpacity
+            style={style.inputButton}
+            onPress={() => {
               navigation.navigate('UbahPassword');
             }}>
             <Text style={style.text}>Ubah Password</Text>

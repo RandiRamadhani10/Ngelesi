@@ -15,6 +15,15 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 const Chat = ({navigation}) => {
   const [message, onChangeMessage] = useState(null);
+  const [items, setItems] = useState(null);
+  const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('user');
+      const res = await JSON.parse(jsonValue);
+      setItems(res);
+    } catch (e) {}
+  };
+  getData;
   return (
     <View style={{flex: 1}}>
       <ImageBackground
@@ -31,7 +40,7 @@ const Chat = ({navigation}) => {
           <View style={{marginLeft: 20, marginRight: 15}}>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('Main');
+                navigation.navigate('main', {pilihan: items.pilihan});
               }}>
               <Text>
                 <Icon name="chevron-left" size={20} solid color="black" />

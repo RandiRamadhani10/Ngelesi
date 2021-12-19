@@ -52,6 +52,8 @@ const Ubahprofil = ({navigation}) => {
             ? uploadImage.uri.replace('file://', '')
             : uploadImage.uri,
       });
+
+      const response = await Models.uploadFotoProfilMurid(formImg);
       const data = {
         id_user: id_user.id,
         nama: nama,
@@ -62,9 +64,9 @@ const Ubahprofil = ({navigation}) => {
         pendidikan: pendidikan,
         jenis_kelamin: kelamin,
         alamat: alamat,
+        foto: response.fileName,
       };
-      Models.uploadFotoProfilMurid(formImg);
-      Models.updateProfilMurid(data);
+      await Models.updateProfilMurid(data);
       setUploadImage(null);
 
       alert('Berhasil !', 'Foto profil berhasil dirubah');

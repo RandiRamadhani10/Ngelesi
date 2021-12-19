@@ -11,6 +11,7 @@ import {
 import dat from '../../utils/dat';
 import RNPickerSelect from 'react-native-picker-select';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Models from '../../models/Models';
 const DaftarUser = ({prop}) => {
   const [nama, onChangeNama] = useState(null);
@@ -19,7 +20,12 @@ const DaftarUser = ({prop}) => {
   const [password, onChangePassword] = useState(null);
   const [konfirmasiPassword, onChangeKonfirmasi] = useState(null);
   const [pilihan, onChangePilihan] = useState(null);
-
+  const storeData = async value => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem('user', jsonValue);
+    } catch (e) {}
+  };
   const regis = async () => {
     const dat = {
       nama: nama,
@@ -42,10 +48,15 @@ const DaftarUser = ({prop}) => {
     if (password !== konfirmasiPassword) {
       return alert('Pastikan password dan konfirmasi password sama');
     } else {
+      console.log(dat);
       const res = await Models.register(dat);
+      console.log(res);
       if (res == false) {
         alert('username sudah dipakai');
-      } else return prop.navigate('Main', {pilihan: pilihan});
+      } else {
+        storeData()
+        prop.navigate('Main', {pilihan: pilihan});
+      }
     }
   };
   return (
