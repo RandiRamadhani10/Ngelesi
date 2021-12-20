@@ -185,6 +185,7 @@ const Models = {
           pendidikan: data.pendidikan,
           jenis_kelamin: data.jenis_kelamin,
           alamat: data.alamat,
+          foto: data.foto,
         }),
       },
     );

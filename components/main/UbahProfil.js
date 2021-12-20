@@ -54,21 +54,23 @@ const Ubahprofil = ({navigation}) => {
       });
 
       const response = await Models.uploadFotoProfilMurid(formImg);
-      const data = {
-        id_user: id_user.id,
-        nama: nama,
-        no_hp: nomor,
-        tempat_lahir: tempat,
-        tanggal_lahir: lahir,
-        umur: umur,
-        pendidikan: pendidikan,
-        jenis_kelamin: kelamin,
-        alamat: alamat,
-        foto: response.fileName,
-      };
-      await Models.updateProfilMurid(data);
-      setUploadImage(null);
-
+      console.log(response);
+      if (response.status == 'success') {
+        const data = {
+          id_user: id_user.id,
+          nama: nama,
+          no_hp: nomor,
+          tempat_lahir: tempat,
+          tanggal_lahir: lahir,
+          umur: umur,
+          pendidikan: pendidikan,
+          jenis_kelamin: kelamin,
+          alamat: alamat,
+          foto: response.fileName,
+        };
+        await Models.updateProfilMurid(data);
+        setUploadImage(null);
+      }
       alert('Berhasil !', 'Foto profil berhasil dirubah');
     } catch (error) {
       alert(error.message);
