@@ -18,10 +18,11 @@ const Kelasguru = ({navigation}) => {
       try {
         const value = await AsyncStorage.getItem('user');
         const res = await JSON.parse(value);
-        console.log(res);
         const responses = await Models.getKelasByIdAdmin(res);
         setItems(responses);
-        console.log(items);
+        if (items == null) {
+          console.log('gak onok data');
+        }
       } catch (e) {
         // error reading value
       }
@@ -39,7 +40,7 @@ const Kelasguru = ({navigation}) => {
           <View style={{width: '100%', alignItems: 'center'}}></View>
         </ScrollView>
       </SafeAreaView>
-      {items == null ? (
+      {items === null ? (
         <Text
           style={{
             marginTop: 30,
@@ -47,7 +48,7 @@ const Kelasguru = ({navigation}) => {
             fontSize: 20,
             color: 'gray',
           }}>
-          Tidak ada Kelas Yang Tersedia !
+          Kelas Belum Di Set !
         </Text>
       ) : (
         <KelasChild navigation={navigation} id={items} />

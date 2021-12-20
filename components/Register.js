@@ -14,6 +14,7 @@ import DaftarUser from './child/DaftarUser';
 import Header from './child/header';
 import Footer from './child/footer';
 const Register = ({navigation}) => {
+  
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <View

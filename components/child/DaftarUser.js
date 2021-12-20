@@ -51,7 +51,7 @@ const DaftarUser = ({prop}) => {
     } else {
       console.log(dat);
       const res = await Models.register(dat);
-      if (res == false) {
+      if (res == false || res == null) {
         alert('username atau email sudah dipakai');
       } else if (pilihan == 'murid') {
         const dataUser = {

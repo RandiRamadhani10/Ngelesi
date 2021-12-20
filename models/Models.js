@@ -1,4 +1,4 @@
-const api = '192.168.43.249';
+const api = '192.168.0.101';
 const Models = {
   async login(data) {
     const fetchItem = await fetch(`http://${api}:8080/ngelesi/Api/login`, {
@@ -95,7 +95,7 @@ const Models = {
           'content-type': 'application/json',
         },
         body: JSON.stringify({
-          id_admin: data,
+          id_admin: data.id,
         }),
       },
     );
@@ -200,13 +200,12 @@ const Models = {
           'content-type': 'application/json',
         },
         body: JSON.stringify({
-          id_kelas: data.id,
+          id_admin: data.id,
         }),
       },
     );
     const res = await fetchItem.json();
     return res;
   },
-  
 };
 export default Models;
