@@ -28,7 +28,9 @@ const Ubahprofil = ({navigation}) => {
   const [pendidikan, setPendidikan] = useState(null);
   const [kelamin, setKelamin] = useState(null);
   const [alamat, setAlamat] = useState(null);
-  const [seta, setdata] = useState(null);
+  const [data, setdata] = useState(null);
+  const [items, setItems] = useState(null);
+  const [popUp, setPopUp] = useState(null);
   const handleChooseFile = async () => {
     try {
       launchImageLibrary({mediaType: 'photo'}, response => {
@@ -43,19 +45,37 @@ const Ubahprofil = ({navigation}) => {
   };
   const test = async () => {
     try {
-      const formImg = new FormData();
-      formImg.append('foto', {
-        name: uploadImage.fileName,
-        type: uploadImage.type,
-        uri:
-          Platform.OS === 'ios'
-            ? uploadImage.uri.replace('file://', '')
-            : uploadImage.uri,
-      });
-
-      const response = await Models.uploadFotoProfilMurid(formImg);
-      console.log(response);
-      if (response.status == 'success') {
+      if (uploadImage != null) {
+        const formImg = new FormData();
+        formImg.append('foto', {
+          name: uploadImage.fileName,
+          type: uploadImage.type,
+          uri:
+            Platform.OS === 'ios'
+              ? uploadImage.uri.replace('file://', '')
+              : uploadImage.uri,
+        });
+        const response = await Models.uploadFotoProfilMurid(formImg);
+        console.log(response);
+        if (response.status == 'success') {
+          const data = {
+            id_user: id_user.id,
+            nama: nama,
+            no_hp: nomor,
+            tempat_lahir: tempat,
+            tanggal_lahir: lahir,
+            umur: umur,
+            pendidikan: pendidikan,
+            jenis_kelamin: kelamin,
+            alamat: alamat,
+            foto: response.fileName,
+          };
+          await Models.updateProfilMurid(data);
+          setUploadImage(null);
+          return setPopUp(1);
+        }
+        return alert('error');
+      } else {
         const data = {
           id_user: id_user.id,
           nama: nama,
@@ -66,12 +86,12 @@ const Ubahprofil = ({navigation}) => {
           pendidikan: pendidikan,
           jenis_kelamin: kelamin,
           alamat: alamat,
-          foto: response.fileName,
+          foto: items.foto,
         };
         await Models.updateProfilMurid(data);
         setUploadImage(null);
+        return setPopUp(1);
       }
-      alert('Berhasil !', 'Foto profil berhasil dirubah');
     } catch (error) {
       alert(error.message);
     }
@@ -82,7 +102,9 @@ const Ubahprofil = ({navigation}) => {
         const jsonValue = await AsyncStorage.getItem('user');
         const res = await JSON.parse(jsonValue);
         setIdUser(res);
-        console.log(seta);
+        const res2 = await Models.getProfilebyIdUser(res);
+        setItems(res2);
+        console.log(res2);
       } catch (e) {
         alert(e.message);
       }
@@ -254,6 +276,7 @@ const Ubahprofil = ({navigation}) => {
           </View>
         </ScrollView>
       </SafeAreaView>
+      {popUp != null ? <PopUp navigation={navigation} /> : true}
     </View>
   );
 };
@@ -271,6 +294,52 @@ const Camera = () => {
         borderWidth: 1,
       }}>
       <Icon name="camera" color="white" size={18} />
+    </View>
+  );
+};
+const PopUp = ({navigation}) => {
+  return (
+    <View
+      style={{
+        width: '100%',
+        position: 'absolute',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+      <View
+        style={{
+          width: '90%',
+          position: 'absolute',
+          borderColor: 'gray',
+          borderRadius: 10,
+          height: 300,
+          top: 200,
+          justifyContent: 'center',
+          alignItems: 'center',
+          elevation: 5,
+          backgroundColor: 'white',
+        }}>
+        <Image
+          style={{height: '50%', width: '100%', marginRight: 2}}
+          source={require('../../assets/Service.png')}
+        />
+        <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+          Perubahan Berhasil Disimpan
+        </Text>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('user');
+          }}
+          style={{
+            padding: 15,
+            margin: 10,
+            borderRadius: 50,
+            backgroundColor: '#55705C',
+          }}>
+          <Text style={{color: 'white'}}>Kembali</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

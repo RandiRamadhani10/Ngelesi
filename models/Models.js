@@ -1,7 +1,7 @@
-const api = '192.168.0.101';
+import env from './env';
 const Models = {
   async login(data) {
-    const fetchItem = await fetch(`http://${api}:8080/ngelesi/Api/login`, {
+    const fetchItem = await fetch(`${env.base}/ngelesi/Api/login`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
@@ -19,7 +19,7 @@ const Models = {
   async register(data) {
     if (data.pilihan === 'murid') {
       const fetchItem = await fetch(
-        `http://${api}:8080/ngelesi/Api/registration_Murid`,
+        `${env.base}/ngelesi/Api/registration_Murid`,
         {
           method: 'POST',
           headers: {
@@ -37,7 +37,7 @@ const Models = {
       return res;
     } else {
       const fetchItem = await fetch(
-        `http://${api}:8080/ngelesi/Api/registration_Guru`,
+        `${env.base}/ngelesi/Api/registration_Guru`,
         {
           method: 'POST',
           headers: {
@@ -56,55 +56,49 @@ const Models = {
     }
   },
   async getKelas() {
-    const fetchItem = await fetch(`http://${api}:8080/ngelesi/Api/getKelas`);
+    const fetchItem = await fetch(`${env.base}/ngelesi/Api/getKelas`);
     const res = await fetchItem.json();
     return res;
   },
   async getRating() {
-    const fetchItem = await fetch(`http://${api}:8080/ngelesi/Api/getRating`);
+    const fetchItem = await fetch(`${env.base}/ngelesi/Api/getRating`);
     const res = await fetchItem.json();
     return res;
   },
   async getKelasMin() {
-    const fetchItem = await fetch(`http://${api}:8080/ngelesi/Api/getKelasMin`);
+    const fetchItem = await fetch(`${env.base}ngelesi/Api/getKelasMin`);
     const res = await fetchItem.json();
     return res;
   },
   async getKelasbyIdUser(data) {
-    const fetchItem = await fetch(
-      `http://${api}:8080/ngelesi/Api/getKelasbyIdUser`,
-      {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          id_user: data.id,
-        }),
+    const fetchItem = await fetch(`${env.base}/ngelesi/Api/getKelasbyIdUser`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
       },
-    );
+      body: JSON.stringify({
+        id_user: data.id,
+      }),
+    });
     const res = await fetchItem.json();
     return res;
   },
   async getAdminbyId(data) {
-    const fetchItem = await fetch(
-      `http://${api}:8080/ngelesi/Api/getAdminbyId`,
-      {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          id_admin: data.id,
-        }),
+    const fetchItem = await fetch(`${env.base}/ngelesi/Api/getAdminbyId`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
       },
-    );
+      body: JSON.stringify({
+        id_admin: data.id,
+      }),
+    });
     const res = await fetchItem.json();
     return res;
   },
   async getProfilebyIdUser(data) {
     const fetchItem = await fetch(
-      `http://${api}:8080/ngelesi/Api/getProfilebyIdUser`,
+      `${env.base}/ngelesi/Api/getProfilebyIdUser`,
       {
         method: 'POST',
         headers: {
@@ -119,13 +113,13 @@ const Models = {
     return res;
   },
   async getSemuaKelasTersedia() {
-    const fetchItem = await fetch(`http://${api}:8080/ngelesi/Api/getKelasMin`);
+    const fetchItem = await fetch(`${env.base}/ngelesi/Api/getKelasMin`);
     const res = await fetchItem.json();
     return res;
   },
   async getKelasTersediabyIdadmin(data) {
     const fetchItem = await fetch(
-      `http://${api}:8080/ngelesi/Api/getKelasTersediabyIdadmin`,
+      `${env.base}/ngelesi/Api/getKelasTersediabyIdadmin`,
       {
         method: 'POST',
         headers: {
@@ -140,25 +134,22 @@ const Models = {
     return res;
   },
   async ubahPassMurid(data) {
-    const fetchItem = await fetch(
-      `http://${api}:8080/ngelesi/Api/ubahPassMurid`,
-      {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          id_user: data.id_user,
-          password: data.password,
-        }),
+    const fetchItem = await fetch(`${env.base}/ngelesi/Api/ubahPassMurid`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
       },
-    );
+      body: JSON.stringify({
+        id_user: data.id_user,
+        password: data.password,
+      }),
+    });
     const res = await fetchItem.json();
     return res;
   },
   async uploadFotoProfilMurid(data) {
     const fetchItem = await fetch(
-      `http://${api}:8080/ngelesi/Api/uploadFotoProfilMurid`,
+      `${env.base}/ngelesi/Api/uploadFotoProfilMurid`,
       {
         method: 'POST',
         body: data,
@@ -168,43 +159,37 @@ const Models = {
     return res;
   },
   async updateProfilMurid(data) {
-    const fetchItem = await fetch(
-      `http://${api}:8080/ngelesi/Api/updateProfilMurid`,
-      {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          id_user: data.id_user,
-          nama: data.nama,
-          no_hp: data.no_hp,
-          tempat_lahir: data.tempat_lahir,
-          tanggal_lahir: data.tanggal_lahir,
-          umur: data.umur,
-          pendidikan: data.pendidikan,
-          jenis_kelamin: data.jenis_kelamin,
-          alamat: data.alamat,
-          foto: data.foto,
-        }),
+    const fetchItem = await fetch(`${env.base}/ngelesi/Api/updateProfilMurid`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
       },
-    );
+      body: JSON.stringify({
+        id_user: data.id_user,
+        nama: data.nama,
+        no_hp: data.no_hp,
+        tempat_lahir: data.tempat_lahir,
+        tanggal_lahir: data.tanggal_lahir,
+        umur: data.umur,
+        pendidikan: data.pendidikan,
+        jenis_kelamin: data.jenis_kelamin,
+        alamat: data.alamat,
+        foto: data.foto,
+      }),
+    });
     const res = await fetchItem.json();
     return res;
   },
   async getKelasByIdAdmin(data) {
-    const fetchItem = await fetch(
-      `http://${api}:8080/ngelesi/Api/getKelasByIdAdmin`,
-      {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          id_admin: data.id,
-        }),
+    const fetchItem = await fetch(`${env.base}/ngelesi/Api/getKelasByIdAdmin`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
       },
-    );
+      body: JSON.stringify({
+        id_admin: data.id,
+      }),
+    });
     const res = await fetchItem.json();
     return res;
   },
