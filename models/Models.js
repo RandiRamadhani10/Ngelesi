@@ -180,6 +180,37 @@ const Models = {
     const res = await fetchItem.json();
     return res;
   },
+  async uploadFotoProfilGuru(data) {
+    const fetchItem = await fetch(
+      `${env.base}/ngelesi/Api/uploadFotoProfilGuru`,
+      {
+        method: 'POST',
+        body: data,
+      },
+    );
+    const res = await fetchItem.json();
+    return res;
+  },
+  async updateProfilGuru(data) {
+    const fetchItem = await fetch(`${env.base}/ngelesi/Api/updateProfilGuru`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        id_admin: data.id_admin,
+        nama: data.nama,
+        no_hp: data.no_hp,
+        tmpt_lahir: data.tempat_lahir,
+        tgl_lahir: data.tanggal_lahir,
+        bidang: data.pendidikan,
+        alamat: data.alamat,
+        foto: data.foto,
+      }),
+    });
+    const res = await fetchItem.json();
+    return res;
+  },
   async getKelasByIdAdmin(data) {
     const fetchItem = await fetch(`${env.base}/ngelesi/Api/getKelasByIdAdmin`, {
       method: 'POST',

@@ -9,14 +9,15 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   Text,
+  Button,
 } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import HeaderProps from '../child/HeaderProps';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import UbahUser from '../child/UbahUSer';
 import {launchImageLibrary} from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Models from '../../models/Models';
+import DatePicker from 'react-native-date-picker';
 const UbahProfilGuru = ({navigation}) => {
   const [id_user, setIdUser] = useState(null);
   const [uploadImage, setUploadImage] = useState(null);
@@ -41,31 +42,49 @@ const UbahProfilGuru = ({navigation}) => {
   };
   const test = async () => {
     try {
-      const formImg = new FormData();
-      formImg.append('foto', {
-        name: uploadImage.fileName,
-        type: uploadImage.type,
-        uri:
-          Platform.OS === 'ios'
-            ? uploadImage.uri.replace('file://', '')
-            : uploadImage.uri,
-      });
-
-      const response = await Models.uploadFotoProfilMurid(formImg);
-      const data = {
-        id_user: id_user.id,
-        nama: nama,
-        no_hp: nomor,
-        tempat_lahir: tempat,
-        tanggal_lahir: lahir,
-        pendidikan: pendidikan,
-        alamat: alamat,
-        foto: response.fileName,
-      };
-      await Models.updateProfilMurid(data);
-      setUploadImage(null);
-
-      alert('Berhasil !', 'Foto profil berhasil dirubah');
+      if (uploadImage != null) {
+        const formImg = new FormData();
+        formImg.append('foto', {
+          name: uploadImage.fileName,
+          type: uploadImage.type,
+          uri:
+            Platform.OS === 'ios'
+              ? uploadImage.uri.replace('file://', '')
+              : uploadImage.uri,
+        });
+        const response = await Models.uploadFotoProfilGuru(formImg);
+        console.log(response);
+        if (response.status == 'success') {
+          const data = {
+            id_admin: id_user.id,
+            nama: nama,
+            no_hp: nomor,
+            tempat_lahir: tempat,
+            tanggal_lahir: lahir,
+            pendidikan: pendidikan,
+            alamat: alamat,
+            foto: response.fileName,
+          };
+          await Models.updateProfilGuru(data);
+          setUploadImage(null);
+          return setPopUp(1);
+        }
+        return alert('error');
+      } else {
+        const data = {
+          id_admin: id_user.id,
+          nama: nama,
+          no_hp: nomor,
+          tempat_lahir: tempat,
+          tanggal_lahir: lahir,
+          pendidikan: pendidikan,
+          alamat: alamat,
+          foto: items.foto,
+        };
+        await Models.updateProfilGuru(data);
+        setUploadImage(null);
+        return setPopUp(1);
+      }
     } catch (error) {
       alert(error.message);
     }
@@ -159,11 +178,26 @@ const UbahProfilGuru = ({navigation}) => {
                 placeholderTextColor="#70815D"
                 keyboardType="default"
               />
+              <View>
+                <Button title="Open" onPress={() => setOpen(true)} />
+                <DatePicker
+                  modal
+                  open={open}
+                  date={date}
+                  onConfirm={date => {
+                    setOpen(false);
+                    setDate(date);
+                  }}
+                  onCancel={() => {
+                    setOpen(false);
+                  }}
+                />
+              </View>
               <TextInput
                 onChangeText={setPendidikan}
                 value={pendidikan}
                 style={style.input}
-                placeholder="Pendidikan"
+                placeholder="bidang"
                 placeholderTextColor="#70815D"
                 keyboardType="default"
               />

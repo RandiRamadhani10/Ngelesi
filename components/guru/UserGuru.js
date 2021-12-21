@@ -3,13 +3,14 @@ import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Models from '../../models/Models';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import env from '../../models/env';
 const Userguru = ({navigation}) => {
   const [items, setItems] = useState([]);
   useEffect(() => {
     const fetch = async () => {
       const jsonValue = await AsyncStorage.getItem('user');
       const res = await JSON.parse(jsonValue);
-
+      console.log(res);
       const api = await Models.getAdminbyId(res);
       console.log(api);
       setItems([api]);
@@ -21,10 +22,7 @@ const Userguru = ({navigation}) => {
     const unsubscribe = navigation.addListener('focus', async e => {
       try {
         await fetch();
-      } catch (error) {
-        alert(error.message);
-        navigation.goBack();
-      }
+      } catch (error) {}
     });
     return unsubscribe;
   }, [setItems]);
@@ -40,15 +38,23 @@ const Userguru = ({navigation}) => {
               justifyContent: 'flex-start',
               alignItems: 'center',
             }}>
-            <Image
+            <View
               style={{
-                height: 124,
-                width: 124,
                 borderRadius: 100,
-                marginTop: 10,
-              }}
-              source={require('../../assets/bg.png')}
-            />
+                marginTop: 15,
+                borderColor: 'gray',
+                borderWidth: 1,
+              }}>
+              <Image
+                key={index}
+                style={{
+                  height: 124,
+                  width: 124,
+                  borderRadius: 100,
+                }}
+                source={{uri: `${env.base + env.linkImg}${data.foto}`}}
+              />
+            </View>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <Text style={{marginRight: 5}}>{data.nama}</Text>
               <TouchableOpacity
@@ -58,7 +64,6 @@ const Userguru = ({navigation}) => {
                 <Icon name="edit" />
               </TouchableOpacity>
             </View>
-            <Text>{data.jenis_kelamin}</Text>
             <View style={{flexDirection: 'row'}}>
               <View>
                 <TouchableOpacity

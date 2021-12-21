@@ -13,7 +13,8 @@ import {
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-const Chat = ({navigation}) => {
+const Chat = ({route, navigation}) => {
+  const {id} = route.params;
   const [message, onChangeMessage] = useState(null);
   const [items, setItems] = useState(null);
   const getData = async () => {

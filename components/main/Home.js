@@ -93,7 +93,7 @@ const Home = ({navigation}) => {
         }}>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('Chat');
+            navigation.navigate('ChatList');
           }}>
           <Text>
             <Icon name="comments" size={30} solid color="white" />
@@ -179,7 +179,7 @@ const KelasTerbaru = ({prop}) => {
                   }}
                   onPress={() => {
                     const dat = data.id_kelas;
-                    prop.navigate('PilihKelas', (id_kelas = {dat}));
+                    prop.navigate('PilihKelas', {id_kelas: data.id_kelas});
                   }}>
                   <Text
                     style={{
@@ -403,8 +403,7 @@ const KelasMin = ({prop}) => {
                     elevation: 5,
                   }}
                   onPress={() => {
-                    const dat = data.id_kelas;
-                    prop.navigate('PilihKelas', (id_kelas = {dat}));
+                    prop.navigate('PilihKelas', {id_kelas: data.id_kelas});
                   }}>
                   <Text
                     style={{

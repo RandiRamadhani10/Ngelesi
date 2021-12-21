@@ -58,12 +58,21 @@ const Login = ({navigation}) => {
     if (res == null) {
       alert('Username dan Password salah!!!');
       return true;
-    } else {
+    } else if (pilihan == 'murid') {
       const dataLokal = {
         username: username,
         password: password,
         pilihan: pilihan,
         id: res.id_user,
+      };
+      storeData(dataLokal);
+      return navigation.navigate('Main', {pilihan: pilihan});
+    } else {
+      const dataLokal = {
+        username: username,
+        password: password,
+        pilihan: pilihan,
+        id: res.id_admin,
       };
       storeData(dataLokal);
       return navigation.navigate('Main', {pilihan: pilihan});

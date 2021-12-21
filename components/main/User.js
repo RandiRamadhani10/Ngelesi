@@ -48,7 +48,6 @@ const User = ({navigation}) => {
                   height: 124,
                   width: 124,
                   borderRadius: 100,
-                  marginTop: 10,
                 }}
                 source={{uri: `${env.base + env.linkImg}${data.foto}`}}
               />

@@ -12,7 +12,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Models from '../../models/Models';
 
 const Kelasguru = ({navigation}) => {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(null);
   useEffect(() => {
     const getData = async () => {
       try {
