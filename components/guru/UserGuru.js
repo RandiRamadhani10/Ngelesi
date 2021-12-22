@@ -78,7 +78,7 @@ const Userguru = ({navigation}) => {
                 <TouchableOpacity
                   style={style.inputButton}
                   onPress={() => {
-                    navigation.navigate('UbahPassword');
+                    navigation.navigate('UbahPasswordGuru');
                   }}>
                   <Text style={style.text}>Ubah Password</Text>
                 </TouchableOpacity>

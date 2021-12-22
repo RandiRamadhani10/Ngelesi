@@ -32,12 +32,12 @@
         "source": "E:\\learn\\react native\\Ngelesi\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.png"
     },
     {
-        "merged": "E:\\learn\\react native\\Ngelesi\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_node_modules_reactnavigation_materialbottomtabs_node_modules_reactnavigation_elements_src_assets_backiconmask.png.flat",
-        "source": "E:\\learn\\react native\\Ngelesi\\android\\app\\src\\main\\res\\drawable-mdpi\\node_modules_reactnavigation_materialbottomtabs_node_modules_reactnavigation_elements_src_assets_backiconmask.png"
-    },
-    {
         "merged": "E:\\learn\\react native\\Ngelesi\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_assets_bg.png.flat",
         "source": "E:\\learn\\react native\\Ngelesi\\android\\app\\src\\main\\res\\drawable-mdpi\\assets_bg.png"
+    },
+    {
+        "merged": "E:\\learn\\react native\\Ngelesi\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_node_modules_reactnavigation_materialbottomtabs_node_modules_reactnavigation_elements_src_assets_backiconmask.png.flat",
+        "source": "E:\\learn\\react native\\Ngelesi\\android\\app\\src\\main\\res\\drawable-mdpi\\node_modules_reactnavigation_materialbottomtabs_node_modules_reactnavigation_elements_src_assets_backiconmask.png"
     },
     {
         "merged": "E:\\learn\\react native\\Ngelesi\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi_node_modules_reactnavigation_elements_src_assets_backicon.png.flat",

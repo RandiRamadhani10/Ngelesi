@@ -124,7 +124,7 @@ const UbahProfilGuru = ({navigation}) => {
           elevation: 10,
         }}>
         <HeaderProps
-          propsName={{nama: 'Ubah Profil', nav: 'user', navs: navigation}}
+          propsName={{nama: 'Ubah Profil', nav: 'userGuru', navs: navigation}}
         />
       </View>
       <View style={{alignItems: 'center', justifyContent: 'center'}}>

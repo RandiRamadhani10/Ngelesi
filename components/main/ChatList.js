@@ -10,7 +10,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Models from '../../models/Models';
 import HeaderProps from '../child/HeaderProps';
-const Chatlist = ({navigation}) => {
+const Chatlist = ({navigation, router}) => {
   return (
     <View
       style={{

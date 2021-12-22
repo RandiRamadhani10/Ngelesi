@@ -41,7 +41,7 @@ const Chat = ({route, navigation}) => {
           <View style={{marginLeft: 20, marginRight: 15}}>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('main', {pilihan: items.pilihan});
+                navigation.goBack();
               }}>
               <Text>
                 <Icon name="chevron-left" size={20} solid color="black" />

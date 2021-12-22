@@ -13,11 +13,13 @@ import Models from '../../models/Models';
 
 const Kelasguru = ({navigation}) => {
   const [items, setItems] = useState(null);
+  const [data, setData] = useState(null);
   useEffect(() => {
     const getData = async () => {
       try {
         const value = await AsyncStorage.getItem('user');
         const res = await JSON.parse(value);
+        setData(res);
         const responses = await Models.getKelasByIdAdmin(res);
         setItems(responses);
         if (items == null) {
@@ -67,7 +69,7 @@ const Kelasguru = ({navigation}) => {
         }}>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('Chat');
+            navigation.navigate('ChatList', {id: data});
           }}>
           <Text>
             <Icon name="comments" size={30} solid color="white" />
@@ -111,7 +113,7 @@ const KelasChild = ({navigation, id}) => {
                 }}>
                 <Icon name="calendar-alt" size={15} />
               </Text>
-              <Text>Kamis, Jumat, Sabtu</Text>
+              <Text>{data.jadwal_kelas}</Text>
             </View>
             <View
               style={{
@@ -141,7 +143,7 @@ const KelasChild = ({navigation, id}) => {
                 }}>
                 <Icon name="user" solid size={15} />
               </Text>
-              <Text>Dwi Randi Ramadhani</Text>
+              <Text>{data.created_by}</Text>
             </View>
           </TouchableOpacity>
         );

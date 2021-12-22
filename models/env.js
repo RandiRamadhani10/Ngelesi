@@ -1,6 +1,6 @@
 const env = {
-  base: 'http://192.168.43.249:8080',
-  linkImg: '/ngelesi/assets/upload/foto/',
-  linkImgAdmin: '/ngelesi/assets/upload/foto/admin/',
+  base: 'http://ngelesi.epizy.com',
+  linkImg: '/assets/upload/foto/',
+  linkImgAdmin: '/assets/upload/foto/admin/',
 };
 export default env;

@@ -30,7 +30,8 @@ import Kelolajadwal from './components/guru/KelolaJadwal';
 import Listkelaskelolajadwal from './components/guru/ListKelasKelolaJadwal';
 import UbahProfilGuru from './components/guru/UbahProfilGuru';
 import ChatList from './components/main/ChatList';
-import UbahPasswordGuru from './components/guru/ubahPaaswordGuru';
+import UbahPasswordGuru from './components/guru/ubahPasswordGuru';
+import Splash from './components/splash';
 const Stack = createNativeStackNavigator();
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         screenOptions={{
           headerShown: false,
         }}>
+        <Stack.Screen name="Splash" component={Splash} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen
           name="ListKelasKelolaJadwal"

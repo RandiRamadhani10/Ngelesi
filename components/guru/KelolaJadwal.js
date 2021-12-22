@@ -11,17 +11,17 @@ import {
 import DatePicker from 'react-native-date-picker';
 import Headerprops from '../child/HeaderProps';
 import moment from 'moment';
-const Kelolajadwal = ({navigation}) => {
+const Kelolajadwal = ({route, navigation}) => {
+  console.log(route.params);
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
   return (
     <View style={{flex: 1}}>
-        
       <View style={{height: 50, justifyContent: 'center'}}>
         <Headerprops
           propsName={{
             nama: 'Kelola Jadwal',
-            nav: 'UserGuru',
+            nav: 'userGuru',
             navs: navigation,
           }}
         />

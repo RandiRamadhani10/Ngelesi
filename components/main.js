@@ -112,7 +112,7 @@ const Guru = () => {
         }}
       />
       <Tab.Screen
-        name="user"
+        name="userGuru"
         component={Userguru}
         showLabel={false}
         options={{

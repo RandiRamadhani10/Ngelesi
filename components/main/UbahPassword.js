@@ -29,13 +29,8 @@ const Ubahpassword = ({navigation}) => {
       return alert('sandi dan konfirmasi tidak sama');
     }
     const data = {id_user: items.id, password: sandiBaru};
-    if (items.pilihan == 'murid') {
-      const json = await Models.ubahPassMurid(data);
-    } else {
-      const json = await Models.ubahPassGuru(data);
-      storeData;
-    }
-
+    const json = await Models.ubahPassMurid(data);
+    setItems(json);
     setPopUp(1);
   };
   const storeData = async value => {
