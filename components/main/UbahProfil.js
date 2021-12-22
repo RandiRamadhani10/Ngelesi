@@ -9,6 +9,7 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   Text,
+  Button,
 } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import HeaderProps from '../child/HeaderProps';
@@ -17,7 +18,11 @@ import UbahUser from '../child/UbahUSer';
 import {launchImageLibrary} from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Models from '../../models/Models';
+import DatePicker from 'react-native-date-picker';
+import moment from 'moment';
 const Ubahprofil = ({navigation}) => {
+  const [date, setDate] = useState(new Date());
+  const [open, setOpen] = useState(false);
   const [id_user, setIdUser] = useState(null);
   const [uploadImage, setUploadImage] = useState(null);
   const [nama, setNama] = useState(null);
@@ -111,6 +116,8 @@ const Ubahprofil = ({navigation}) => {
     };
     coba();
   }, [setdata]);
+
+  const tgl = new Date();
   return (
     <View style={{flex: 1}}>
       <View
@@ -179,14 +186,41 @@ const Ubahprofil = ({navigation}) => {
                 placeholderTextColor="#70815D"
                 keyboardType="default"
               />
-              <TextInput
-                onChangeText={setLahir}
-                value={lahir}
-                style={style.input}
-                placeholder="Tanggal Lahir"
-                placeholderTextColor="#70815D"
-                keyboardType="default"
-              />
+              <View>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: '#BAD79B',
+                    height: 50,
+                    width: 300,
+                    marginVertical: 5,
+                    borderRadius: 50,
+                    padding: 10,
+                    paddingLeft: 15,
+                    elevation: 4,
+                    justifyContent: 'center',
+                  }}
+                  onPress={() => setOpen(true)}>
+                  <Text style={{color: 'gray'}}>
+                    {lahir == null ? 'Tanggal Lahir' : lahir}
+                  </Text>
+                </TouchableOpacity>
+                <DatePicker
+                  modal
+                  open={open}
+                  date={date}
+                  mode="date"
+                  onConfirm={date => {
+                    setOpen(false);
+                    console.log(date);
+                    let dat = moment(date).format('l');
+                    setLahir(dat);
+                    console.log(lahir);
+                  }}
+                  onCancel={() => {
+                    setOpen(false);
+                  }}
+                />
+              </View>
               <TextInput
                 onChangeText={setUmur}
                 value={umur}

@@ -52,7 +52,7 @@ const Userguru = ({navigation}) => {
                   width: 124,
                   borderRadius: 100,
                 }}
-                source={{uri: `${env.base + env.linkImg}${data.foto}`}}
+                source={{uri: `${env.base + env.linkImgAdmin}${data.foto}`}}
               />
             </View>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>

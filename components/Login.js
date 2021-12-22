@@ -55,27 +55,29 @@ const Login = ({navigation}) => {
     }
 
     const res = await Models.login(dat);
-    if (res == null) {
+    if (res == null || res == false) {
       alert('Username dan Password salah!!!');
       return true;
-    } else if (pilihan == 'murid') {
-      const dataLokal = {
-        username: username,
-        password: password,
-        pilihan: pilihan,
-        id: res.id_user,
-      };
-      storeData(dataLokal);
-      return navigation.navigate('Main', {pilihan: pilihan});
     } else {
-      const dataLokal = {
-        username: username,
-        password: password,
-        pilihan: pilihan,
-        id: res.id_admin,
-      };
-      storeData(dataLokal);
-      return navigation.navigate('Main', {pilihan: pilihan});
+      if (pilihan == 'murid') {
+        const dataLokal = {
+          username: username,
+          password: password,
+          pilihan: pilihan,
+          id: res.id_user,
+        };
+        storeData(dataLokal);
+        return navigation.navigate('Main', {pilihan: pilihan});
+      } else {
+        const dataLokal = {
+          username: username,
+          password: password,
+          pilihan: pilihan,
+          id: res.id_admin,
+        };
+        storeData(dataLokal);
+        return navigation.navigate('Main', {pilihan: pilihan});
+      }
     }
   };
   return (

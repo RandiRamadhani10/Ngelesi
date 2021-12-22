@@ -18,7 +18,10 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Models from '../../models/Models';
 import DatePicker from 'react-native-date-picker';
+import moment from 'moment';
 const UbahProfilGuru = ({navigation}) => {
+  const [date, setDate] = useState(new Date());
+  const [open, setOpen] = useState(false);
   const [id_user, setIdUser] = useState(null);
   const [uploadImage, setUploadImage] = useState(null);
   const [nama, setNama] = useState(null);
@@ -28,6 +31,10 @@ const UbahProfilGuru = ({navigation}) => {
   const [pendidikan, setPendidikan] = useState(null);
   const [alamat, setAlamat] = useState(null);
   const [seta, setdata] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [items, setItems] = useState(null);
+  const [popUp, setPopUp] = useState(null);
+  const [username, setUsername] = useState(null);
   const handleChooseFile = async () => {
     try {
       launchImageLibrary({mediaType: 'photo'}, response => {
@@ -58,7 +65,9 @@ const UbahProfilGuru = ({navigation}) => {
           const data = {
             id_admin: id_user.id,
             nama: nama,
+            username: username,
             no_hp: nomor,
+            email: email,
             tempat_lahir: tempat,
             tanggal_lahir: lahir,
             pendidikan: pendidikan,
@@ -69,18 +78,20 @@ const UbahProfilGuru = ({navigation}) => {
           setUploadImage(null);
           return setPopUp(1);
         }
-        return alert('error');
       } else {
         const data = {
           id_admin: id_user.id,
           nama: nama,
+          username: username,
           no_hp: nomor,
+          email: email,
           tempat_lahir: tempat,
           tanggal_lahir: lahir,
           pendidikan: pendidikan,
           alamat: alamat,
-          foto: items.foto,
+          foto: items.foto == null ? 'usern.png' : items.foto,
         };
+
         await Models.updateProfilGuru(data);
         setUploadImage(null);
         return setPopUp(1);
@@ -95,7 +106,9 @@ const UbahProfilGuru = ({navigation}) => {
         const jsonValue = await AsyncStorage.getItem('user');
         const res = await JSON.parse(jsonValue);
         setIdUser(res);
-        console.log(seta);
+        const res2 = await Models.getAdminbyId(res);
+        setItems(res2);
+        console.log(res2);
       } catch (e) {
         alert(e.message);
       }
@@ -153,7 +166,22 @@ const UbahProfilGuru = ({navigation}) => {
                 placeholderTextColor="#70815D"
                 keyboardType="default"
               />
-
+              <TextInput
+                onChangeText={setUsername}
+                value={username}
+                style={style.input}
+                placeholder="Username"
+                placeholderTextColor="#70815D"
+                keyboardType="default"
+              />
+              <TextInput
+                onChangeText={setEmail}
+                value={email}
+                style={style.input}
+                placeholder="Email"
+                placeholderTextColor="#70815D"
+                keyboardType="default"
+              />
               <TextInput
                 onChangeText={setNomor}
                 value={nomor}
@@ -170,23 +198,35 @@ const UbahProfilGuru = ({navigation}) => {
                 placeholderTextColor="#70815D"
                 keyboardType="default"
               />
-              <TextInput
-                onChangeText={setLahir}
-                value={lahir}
-                style={style.input}
-                placeholder="Tanggal Lahir"
-                placeholderTextColor="#70815D"
-                keyboardType="default"
-              />
               <View>
-                <Button title="Open" onPress={() => setOpen(true)} />
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: '#BAD79B',
+                    height: 50,
+                    width: 300,
+                    marginVertical: 5,
+                    borderRadius: 50,
+                    padding: 10,
+                    paddingLeft: 15,
+                    elevation: 4,
+                    justifyContent: 'center',
+                  }}
+                  onPress={() => setOpen(true)}>
+                  <Text style={{color: 'gray'}}>
+                    {lahir == null ? 'Tanggal Lahir' : lahir}
+                  </Text>
+                </TouchableOpacity>
                 <DatePicker
                   modal
                   open={open}
                   date={date}
+                  mode="date"
                   onConfirm={date => {
                     setOpen(false);
-                    setDate(date);
+                    console.log(date);
+                    let dat = moment(date).format('YYYY-MM-DD');
+                    setLahir(dat);
+                    console.log(lahir);
                   }}
                   onCancel={() => {
                     setOpen(false);
@@ -237,6 +277,53 @@ const UbahProfilGuru = ({navigation}) => {
           </View>
         </ScrollView>
       </SafeAreaView>
+      {popUp != null ? <PopUp navigation={navigation} /> : true}
+    </View>
+  );
+};
+const PopUp = ({navigation}) => {
+  return (
+    <View
+      style={{
+        width: '100%',
+        position: 'absolute',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+      <View
+        style={{
+          width: '90%',
+          position: 'absolute',
+          borderColor: 'gray',
+          borderRadius: 10,
+          height: 300,
+          top: 200,
+          justifyContent: 'center',
+          alignItems: 'center',
+          elevation: 5,
+          backgroundColor: 'white',
+        }}>
+        <Image
+          style={{height: '50%', width: '100%', marginRight: 2}}
+          source={require('../../assets/Service.png')}
+        />
+        <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+          Perubahan Berhasil Disimpan
+        </Text>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('user');
+          }}
+          style={{
+            padding: 15,
+            margin: 10,
+            borderRadius: 50,
+            backgroundColor: '#55705C',
+          }}>
+          <Text style={{color: 'white'}}>Kembali</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

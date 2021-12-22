@@ -112,6 +112,32 @@ const Models = {
     const res = await fetchItem.json();
     return res;
   },
+  async getTugas(data) {
+    const fetchItem = await fetch(`${env.base}/ngelesi/Api/getTugas`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        id_kelas: data.id_kelas,
+      }),
+    });
+    const res = await fetchItem.json();
+    return res;
+  },
+  async getPendaftar(data) {
+    const fetchItem = await fetch(`${env.base}/ngelesi/Api/getPendaftar`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        id_kelas: data.id_kelas,
+      }),
+    });
+    const res = await fetchItem.json();
+    return res;
+  },
   async getSemuaKelasTersedia() {
     const fetchItem = await fetch(`${env.base}/ngelesi/Api/getKelasMin`);
     const res = await fetchItem.json();
@@ -200,6 +226,8 @@ const Models = {
       body: JSON.stringify({
         id_admin: data.id_admin,
         nama: data.nama,
+        username: data.username,
+        email: data.email,
         no_hp: data.no_hp,
         tmpt_lahir: data.tempat_lahir,
         tgl_lahir: data.tanggal_lahir,

@@ -84,6 +84,7 @@ const KelasChild = ({navigation, id}) => {
       {items.map((data, index) => {
         return (
           <TouchableOpacity
+            key={index}
             style={{
               backgroundColor: '#BAD79B',
               width: '70%',
@@ -91,7 +92,9 @@ const KelasChild = ({navigation, id}) => {
               borderRadius: 15,
               marginTop: 15,
             }}
-            onPress={() => {}}>
+            onPress={() => {
+              navigation.navigate('DetailKelasGuru', id);
+            }}>
             <Text style={{fontSize: 25, fontWeight: 'bold'}}>
               {data.judul_kelas}
             </Text>
