@@ -159,6 +159,20 @@ const Models = {
     const res = await fetchItem.json();
     return res;
   },
+  async ubahPassGuru(data) {
+    const fetchItem = await fetch(`${env.base}/ngelesi/Api/ubahPassGuru`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        id_admin: data.id_user,
+        password: data.password,
+      }),
+    });
+    const res = await fetchItem.json();
+    return res;
+  },
   async ubahPassMurid(data) {
     const fetchItem = await fetch(`${env.base}/ngelesi/Api/ubahPassMurid`, {
       method: 'POST',

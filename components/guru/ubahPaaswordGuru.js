@@ -12,9 +12,9 @@ import {
 } from 'react-native';
 import HeaderProps from '../child/HeaderProps';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import Models from '../../models/Models';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const Ubahpassword = ({navigation}) => {
+import Models from '../../models/Models';
+const UbahPasswordGuru = ({navigation}) => {
   const [sandiLama, setSandiLama] = useState(null);
   const [sandiBaru, setSandiBaru] = useState(null);
   const [konfirmasi, setkonfirmasi] = useState(null);
@@ -214,4 +214,4 @@ const PopUp = ({navigation}) => {
     </View>
   );
 };
-export default Ubahpassword;
+export default UbahPasswordGuru;

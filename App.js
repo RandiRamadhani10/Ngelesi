@@ -30,6 +30,7 @@ import Kelolajadwal from './components/guru/KelolaJadwal';
 import Listkelaskelolajadwal from './components/guru/ListKelasKelolaJadwal';
 import UbahProfilGuru from './components/guru/UbahProfilGuru';
 import ChatList from './components/main/ChatList';
+import UbahPasswordGuru from './components/guru/ubahPaaswordGuru';
 const Stack = createNativeStackNavigator();
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
           name="ListKelasKelolaJadwal"
           component={Listkelaskelolajadwal}
         />
+        <Stack.Screen name="UbahPasswordGuru" component={UbahPasswordGuru} />
         <Stack.Screen name="ChatList" component={ChatList} />
         <Stack.Screen name="KelolaJadwal" component={Kelolajadwal} />
         <Stack.Screen name="UbahProfilGuru" component={UbahProfilGuru} />
