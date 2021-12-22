@@ -1,5 +1,5 @@
 import {placeholder} from '@babel/types';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -23,6 +23,7 @@ const Login = ({navigation}) => {
   const [username, onChangeUsername] = useState(null);
   const [password, onChangePassword] = useState(null);
   const [pilihan, onChangePilihan] = useState(null);
+  const [items, setItems] = useState(null);
   const height = Dimensions.get('window').height;
 
   const getData = async () => {
@@ -33,8 +34,10 @@ const Login = ({navigation}) => {
         return null;
       } else {
         const response = await Models.login(res);
-        console.log(response);
-        if (response != null) {
+        setItems(response);
+        if (response == null || response == false) {
+        } else {
+          console.log(items);
           return navigation.navigate('Main', {pilihan: res.pilihan});
         }
         return true;
@@ -47,7 +50,7 @@ const Login = ({navigation}) => {
       await AsyncStorage.setItem('user', jsonValue);
     } catch (e) {}
   };
-  getData();
+
   const loginReq = async () => {
     const dat = {username: username, password: password, pilihan: pilihan};
     if (username === null || password === null || pilihan === null) {
@@ -80,6 +83,9 @@ const Login = ({navigation}) => {
       }
     }
   };
+  useEffect(() => {
+    getData();
+  }, [setItems]);
   return (
     <View style={{flex: 1}}>
       <ScrollView style={{flex: 1, backgroundColor: 'red'}}>

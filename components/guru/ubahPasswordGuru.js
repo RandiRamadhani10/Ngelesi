@@ -30,9 +30,11 @@ const UbahPasswordGuru = ({navigation}) => {
     }
     const data = {id: items.id, password: sandiBaru};
     const api = await Models.ubahPassGuru(data);
-    console.log(api);
-    console.log(items);
-    setPopUp(1);
+    if ((api.status = 'sucsess')) {
+      setPopUp(1);
+    } else {
+      alert(api.status);
+    }
   };
   const storeData = async value => {
     try {

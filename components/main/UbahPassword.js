@@ -28,10 +28,14 @@ const Ubahpassword = ({navigation}) => {
     if (sandiBaru !== konfirmasi) {
       return alert('sandi dan konfirmasi tidak sama');
     }
-    const data = {id_user: items.id, password: sandiBaru};
+    const data = {id: items.id, password: sandiBaru};
     const json = await Models.ubahPassMurid(data);
-    setItems(json);
-    setPopUp(1);
+
+    if ((json.status = 'sucsess')) {
+      setPopUp(1);
+    } else {
+      alert(json.status);
+    }
   };
   const storeData = async value => {
     try {

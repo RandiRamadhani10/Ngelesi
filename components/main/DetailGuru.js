@@ -4,12 +4,13 @@ import {View, TouchableOpacity, Text, Image, StyleSheet} from 'react-native';
 import Headerprops from '../child/HeaderProps';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Models from '../../models/Models';
+import env from '../../models/env';
 const Detailguru = ({navigation, route}) => {
-  const {id_admin} = route.params;
+  const id = route.params;
   const [items, setItems] = useState([]);
   useEffect(() => {
     const coba = async () => {
-      const api = await Models.getAdminbyId(id_admin);
+      const api = await Models.getAdminbyId(id);
       setItems([api]);
       console.log(items);
     };
@@ -25,7 +26,7 @@ const Detailguru = ({navigation, route}) => {
       </View>
       {items.map((data, index) => {
         return (
-          <>
+          <View style={{width: '100%', alignItems: 'center'}}>
             <Image
               style={{
                 height: 124,
@@ -33,7 +34,7 @@ const Detailguru = ({navigation, route}) => {
                 borderRadius: 100,
                 marginTop: 10,
               }}
-              source={require('../../assets/bg.png')}
+              source={{uri: `${env.base + env.linkImgAdmin}${data.foto}`}}
             />
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <Text style={{marginRight: 5}}>{data.nama}</Text>
@@ -55,10 +56,10 @@ const Detailguru = ({navigation, route}) => {
               <Text style={style.text}>Bidang : </Text>
               <Text style={style.text}>● {data.bidang}</Text>
             </View>
-          </>
+          </View>
         );
       })}
-      <KelasGuru navigation={navigation} id={id_admin} />
+      <KelasGuru navigation={navigation} id={id} />
     </View>
   );
 };
@@ -77,44 +78,58 @@ const style = StyleSheet.create({
   },
 });
 const KelasGuru = ({navigation, id}) => {
-  console.log(id);
+  console.log(id.id);
   const [items, setItems] = useState([]);
   useEffect(() => {
     const coba = async () => {
-      const api = await Models.getKelasTersediabyIdadmin(id);
+      const api = await Models.getKelasTersediabyIdadmin(id.id);
       setItems([api]);
-      console.log(items);
     };
     coba();
   }, [setItems]);
-  console.log(items);
+
   return (
-    <View
-      style={{
-        width: 290,
-        backgroundColor: '#BAD79B',
-        padding: 10,
-        borderRadius: 15,
-        marginTop: 5,
-        color: 'white',
-        flexDirection: 'row',
-      }}>
-      <View style={{flex: 1}}>
-        <Text style={{fontWeight: 'bold'}}>Geografi 1</Text>
-        <Text>3x Pertemuan</Text>
-        <Text>( 10, 12, 14)</Text>
-      </View>
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'flex-end'}}>
-        <Text>Rp. 250.000</Text>
-        <TouchableOpacity
-          style={{padding: 5, backgroundColor: '#55705C', borderRadius: 50}}
-          onPress={() => {
-            navigation.navigate('PilihKelas');
-          }}>
-          <Text style={{color: 'white'}}>Ambil Kelas</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+    <>
+      {items.map((data, index) => {
+        return (
+          <View
+            style={{
+              width: 290,
+              backgroundColor: '#BAD79B',
+              padding: 10,
+              borderRadius: 15,
+              marginTop: 5,
+              color: 'white',
+              flexDirection: 'row',
+            }}>
+            <View style={{flex: 1}}>
+              <Text style={{fontWeight: 'bold'}}>{data.judul_kelas}</Text>
+              {/* <Text>3x Pertemuan</Text> */}
+              <Text>{data.jadwal_kelas}</Text>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'flex-end',
+              }}>
+              <Text>Rp. {data.harga_kelas}</Text>
+              <TouchableOpacity
+                style={{
+                  padding: 5,
+                  backgroundColor: '#55705C',
+                  borderRadius: 50,
+                }}
+                onPress={() => {
+                  navigation.navigate('PilihKelas', {id: data.id_kelas});
+                }}>
+                <Text style={{color: 'white'}}>Ambil Kelas</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        );
+      })}
+    </>
   );
 };
 export default Detailguru;

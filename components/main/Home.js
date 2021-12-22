@@ -179,7 +179,7 @@ const KelasTerbaru = ({prop}) => {
                   }}
                   onPress={() => {
                     const dat = data.id_kelas;
-                    prop.navigate('PilihKelas', {id_kelas: data.id_kelas});
+                    prop.navigate('PilihKelas', {id: data.id_kelas});
                   }}>
                   <Text
                     style={{
@@ -285,7 +285,7 @@ const GuruTerbaik = ({prop}) => {
                     elevation: 5,
                   }}
                   onPress={() => {
-                    prop.navigate('DetailGuru', {id_admin: data.id_admin});
+                    prop.navigate('DetailGuru', {id: data.id_admin});
                   }}>
                   <Text
                     style={{
@@ -403,7 +403,7 @@ const KelasMin = ({prop}) => {
                     elevation: 5,
                   }}
                   onPress={() => {
-                    prop.navigate('PilihKelas', {id_kelas: data.id_kelas});
+                    prop.navigate('PilihKelas', {id: data.id_kelas});
                   }}>
                   <Text
                     style={{

@@ -1,5 +1,5 @@
 const env = {
-  base: 'http://ngelesi.epizy.com',
+  base: 'http://192.168.0.107:8080',
   linkImg: '/assets/upload/foto/',
   linkImgAdmin: '/assets/upload/foto/admin/',
 };

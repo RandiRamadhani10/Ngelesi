@@ -1,7 +1,7 @@
 import env from './env';
 const Models = {
   async login(data) {
-    const fetchItem = await fetch(`${env.base}/Api/login`, {
+    const fetchItem = await fetch(`${env.base}/ngelesi/Api/login`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
@@ -18,33 +18,39 @@ const Models = {
   },
   async register(data) {
     if (data.pilihan === 'murid') {
-      const fetchItem = await fetch(`${env.base}/Api/registration_Murid`, {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
+      const fetchItem = await fetch(
+        `${env.base}/ngelesi/Api/registration_Murid`,
+        {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: data.username,
+            password: data.password,
+            nama: data.nama,
+            email: data.email,
+          }),
         },
-        body: JSON.stringify({
-          username: data.username,
-          password: data.password,
-          nama: data.nama,
-          email: data.email,
-        }),
-      });
+      );
       const res = await fetchItem.json();
       return res;
     } else {
-      const fetchItem = await fetch(`${env.base}/Api/registration_Guru`, {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
+      const fetchItem = await fetch(
+        `${env.base}/ngelesi/Api/registration_Guru`,
+        {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: data.username,
+            nama: data.nama,
+            password: data.password,
+            email: data.email,
+          }),
         },
-        body: JSON.stringify({
-          username: data.username,
-          nama: data.nama,
-          password: data.password,
-          email: data.email,
-        }),
-      });
+      );
       const res = await fetchItem.json();
       return res;
     }
@@ -86,6 +92,16 @@ const Models = {
       body: JSON.stringify({
         id_admin: data.id,
       }),
+    });
+    const res = await fetchItem.json();
+    return res;
+  },
+  async getAdmin(data) {
+    const fetchItem = await fetch(`${env.base}/ngelesi/Api/getAdmin`, {
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+      },
     });
     const res = await fetchItem.json();
     return res;
@@ -146,10 +162,23 @@ const Models = {
           'content-type': 'application/json',
         },
         body: JSON.stringify({
-          id_admin: data.id,
+          id_admin: data,
         }),
       },
     );
+    const res = await fetchItem.json();
+    return res;
+  },
+  async getKelasbyId(data) {
+    const fetchItem = await fetch(`${env.base}/ngelesi/Api/getKelasbyId`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        id_kelas: data,
+      }),
+    });
     const res = await fetchItem.json();
     return res;
   },

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -8,7 +8,19 @@ import {
   ScrollView,
 } from 'react-native';
 import Headerprops from '../child/HeaderProps';
-const Pilihkelas = ({navigation, routes}) => {
+import Models from '../../models/Models';
+const Pilihkelas = ({navigation, route}) => {
+  const data = route.params;
+  console.log(data.id);
+  const [items, setItems] = useState([]);
+  useEffect(() => {
+    const coba = async () => {
+      const api = await Models.getKelasbyId(data.id);
+      setItems(api);
+    };
+    coba();
+  }, [setItems]);
+  console.log(items);
   return (
     <View style={{flex: 1}}>
       <View style={{height: 50, justifyContent: 'center'}}>
@@ -22,40 +34,44 @@ const Pilihkelas = ({navigation, routes}) => {
       </View>
       <SafeAreaView style={{flex: 1}}>
         <ScrollView>
-          <View style={{alignItems: 'center'}}>
-            <View style={{width: '80%'}}>
-              <View style={{width: '100%'}}>
-                <Text style={style.text}>Nama Kelas</Text>
-                <View style={style.input}>
-                  <Text>Geografi 1</Text>
-                </View>
-                <Text style={style.text}>Mata Pelajaran</Text>
-                <View style={style.input}>
-                  <Text>Geografi</Text>
-                </View>
-                <Text style={style.text}>Nama Guru</Text>
-                <View style={style.input}>
-                  <Text>Alda Maretina</Text>
-                </View>
-                <Text style={style.text}>Kode Kelas</Text>
-                <View style={style.input}>
-                  <Text>1234</Text>
-                </View>
-                <Text style={style.text}>Jadwal Kelas</Text>
-                <View style={style.input}>
-                  <Text>19, 20, 21</Text>
-                </View>
-                <Text style={style.text}>Waktu Kelas</Text>
-                <View style={style.input}>
-                  <Text>07.00 (durasi 3 jam)</Text>
-                </View>
-                <Text style={style.text}>Harga Kelas</Text>
-                <View style={style.input}>
-                  <Text>Rp. 250.000</Text>
+          {items.map((dat, index) => {
+            return (
+              <View style={{alignItems: 'center'}}>
+                <View style={{width: '80%'}}>
+                  <View style={{width: '100%'}}>
+                    <Text style={style.text}>Nama Kelas</Text>
+                    <View style={style.input}>
+                      <Text>{dat.judul_kelas}</Text>
+                    </View>
+                    {/* <Text style={style.text}>Mata Pelajaran</Text>
+                    <View style={style.input}>
+                      <Text>Geografi</Text>
+                    </View> */}
+                    <Text style={style.text}>Nama Guru</Text>
+                    <View style={style.input}>
+                      <Text>{dat.created_by}</Text>
+                    </View>
+                    <Text style={style.text}>Kode Kelas</Text>
+                    <View style={style.input}>
+                      <Text>{dat.kode_kelas}</Text>
+                    </View>
+                    <Text style={style.text}>Jadwal Kelas</Text>
+                    <View style={style.input}>
+                      <Text>{dat.kode_kelas}</Text>
+                    </View>
+                    <Text style={style.text}>Waktu Kelas</Text>
+                    <View style={style.input}>
+                      <Text>{dat.waktu_kelas}</Text>
+                    </View>
+                    <Text style={style.text}>Harga Kelas</Text>
+                    <View style={style.input}>
+                      <Text>{dat.harga_kelas}</Text>
+                    </View>
+                  </View>
                 </View>
               </View>
-            </View>
-          </View>
+            );
+          })}
           <View style={{alignItems: 'center'}}>
             <TouchableOpacity
               style={style.inputButton}
